@@ -39,7 +39,17 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-const githubData = axios.get('https://api.github.com/users/andywatts712')
+axios.get('https://api.github.com/users/andywatts712')
+  .then(res => {
+    console.log(res.data)
+    console.log(cardMaker(res.data))
+    const card = cardMaker(res.data)
+    const cards = document.querySelector('.cards')
+    cards.appendChild(card)
+  })
+  .catch(err => {
+    console.log(err)
+  })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -85,14 +95,14 @@ const followersArray = [];
       </div>
     </div>
 */
-function cardMaker(object) {
+function cardMaker(data) {
   const card = document.createElement('div')
   const image = document.createElement('img')
-  const cardInfo =document.createElement('div')
+  const cardInfo = document.createElement('div')
   const name = document.createElement('h3')
   const username = document.createElement('p')
   const location = document.createElement('p')
-  const profile =document.createElement('p')
+  const profile = document.createElement('p')
   const userURL = document.createElement('a')
   const followers = document.createElement('p')
   const following = document.createElement('p')
@@ -114,22 +124,19 @@ function cardMaker(object) {
   cardInfo.appendChild(bio)
   profile.appendChild(userURL)
 
-  image.src = object.avatar_url
-  name.textContent = object.name
-  username.textContent = object.login
-  location.textContent = `Location: ${object.location}`
+  image.src = data.avatar_url
+  name.textContent = data.name
+  username.textContent = data.login
+  location.textContent = `Location: ${data.location}`
   profile.textContent = "Profile:"
-  userURL.href = object.html_url
-  followers.textContent = `Followers: ${object.followers_url}`
-  following.textContent = `Following: ${object.following_url}`
-  bio.textContent = `Bio: ${object.bio}`
-
-
+  userURL.href = data.html_url
+  followers.textContent = `Followers: ${data.followers}`
+  following.textContent = `Following: ${data.following}`
+  bio.textContent = `Bio: ${data.bio}`
 
   return card
 }
 
-console.log(cardMaker(githubData))
 /*
   List of LS Instructors Github username's:
     tetondan
