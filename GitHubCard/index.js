@@ -1,9 +1,45 @@
+import axios from 'axios';
+/* {
+  "login": "AndyWatts712",
+  "id": 39651278,
+  "node_id": "MDQ6VXNlcjM5NjUxMjc4",
+  "avatar_url": "https://avatars3.githubusercontent.com/u/39651278?v=4",
+  "gravatar_id": "",
+  "url": "https://api.github.com/users/AndyWatts712",
+  "html_url": "https://github.com/AndyWatts712",
+  "followers_url": "https://api.github.com/users/AndyWatts712/followers",
+  "following_url": "https://api.github.com/users/AndyWatts712/following{/other_user}",
+  "gists_url": "https://api.github.com/users/AndyWatts712/gists{/gist_id}",
+  "starred_url": "https://api.github.com/users/AndyWatts712/starred{/owner}{/repo}",
+  "subscriptions_url": "https://api.github.com/users/AndyWatts712/subscriptions",
+  "organizations_url": "https://api.github.com/users/AndyWatts712/orgs",
+  "repos_url": "https://api.github.com/users/AndyWatts712/repos",
+  "events_url": "https://api.github.com/users/AndyWatts712/events{/privacy}",
+  "received_events_url": "https://api.github.com/users/AndyWatts712/received_events",
+  "type": "User",
+  "site_admin": false,
+  "name": null,
+  "company": null,
+  "blog": "",
+  "location": null,
+  "email": null,
+  "hireable": null,
+  "bio": null,
+  "twitter_username": null,
+  "public_repos": 21,
+  "public_gists": 0,
+  "followers": 1,
+  "following": 0,
+  "created_at": "2018-05-26T14:10:28Z",
+  "updated_at": "2020-07-09T18:30:10Z"
+}
+*/
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+const githubData = axios.get('https://api.github.com/users/andywatts712')
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,7 +85,51 @@ const followersArray = [];
       </div>
     </div>
 */
+function cardMaker(object) {
+  const card = document.createElement('div')
+  const image = document.createElement('img')
+  const cardInfo =document.createElement('div')
+  const name = document.createElement('h3')
+  const username = document.createElement('p')
+  const location = document.createElement('p')
+  const profile =document.createElement('p')
+  const userURL = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
 
+  card.classList.add('card')
+  cardInfo.classList.add('card-info')
+  name.classList.add('name')
+  username.classList.add('username')
+
+  card.appendChild(image)
+  card.appendChild(cardInfo)
+  cardInfo.appendChild(name)
+  cardInfo.appendChild(username)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+  profile.appendChild(userURL)
+
+  image.src = object.avatar_url
+  name.textContent = object.name
+  username.textContent = object.login
+  location.textContent = `Location: ${object.location}`
+  profile.textContent = "Profile:"
+  userURL.href = object.html_url
+  followers.textContent = `Followers: ${object.followers_url}`
+  following.textContent = `Following: ${object.following_url}`
+  bio.textContent = `Bio: ${object.bio}`
+
+
+
+  return card
+}
+
+console.log(cardMaker(githubData))
 /*
   List of LS Instructors Github username's:
     tetondan
