@@ -127,6 +127,18 @@ function cardMaker(data) {
   name.classList.add('name')
   username.classList.add('username')
 
+  
+  image.src = data.avatar_url
+  name.textContent = data.name
+  username.textContent = data.login
+  location.textContent = `Location: ${data.location}`
+  profile.textContent = "Profile: "
+  userURL.href = data.html_url
+  userURL.textContent = data.html_url
+  followers.textContent = `Followers: ${data.followers}`
+  following.textContent = `Following: ${data.following}`
+  bio.textContent = `Bio: ${data.bio}`
+  
   card.appendChild(image)
   card.appendChild(cardInfo)
   cardInfo.appendChild(name)
@@ -137,16 +149,6 @@ function cardMaker(data) {
   cardInfo.appendChild(following)
   cardInfo.appendChild(bio)
   profile.appendChild(userURL)
-
-  image.src = data.avatar_url
-  name.textContent = data.name
-  username.textContent = data.login
-  location.textContent = `Location: ${data.location}`
-  profile.textContent = "Profile:"
-  userURL.href = data.html_url
-  followers.textContent = `Followers: ${data.followers}`
-  following.textContent = `Following: ${data.following}`
-  bio.textContent = `Bio: ${data.bio}`
 
   return card
 }
